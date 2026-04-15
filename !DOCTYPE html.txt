@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychology Tasker - Cognitive Load Manager</title>
+</head>
+<body>
+
+    <h1> Psychology Tasker</h1>
+    <h3>Cognitive Load Based Task Manager</h3>
+
+    <hr>
+
+    <!-- Task Input -->
+    <h2>Add New Task</h2>
+
+    <label>Task Name:</label><br>
+    <input type="text" id="taskName"><br><br>
+
+    <label>Cognitive Load:</label><br>
+    <select id="loadLevel">
+        <option value="Low">Low (Easy)</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High (Hard)</option>
+    </select><br><br>
+
+    <button onclick="addTask()">Add Task</button>
+
+    <hr>
+
+    <!-- Task List -->
+    <h2>Task List</h2>
+    <ul id="taskList"></ul>
+
+    <hr>
+
+    <!-- Suggestion Area -->
+    <h2> Smart Suggestion</h2>
+    <p id="suggestion">No tasks yet.</p>
+
+    <script>
+        function addTask() {
+            let taskName = document.getElementById("taskName").value;
+            let loadLevel = document.getElementById("loadLevel").value;
+
+            if (taskName === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            let taskList = document.getElementById("taskList");
+
+            let li = document.createElement("li");
+            li.textContent = taskName + " [" + loadLevel + "]";
+            taskList.appendChild(li);
+
+            generateSuggestion(loadLevel);
+
+            document.getElementById("taskName").value = "";
+        }
+
+        function generateSuggestion(loadLevel) {
+            let suggestion = document.getElementById("suggestion");
+
+            if (loadLevel === "Low") {
+                suggestion.textContent = "Good for quick productivity! Stack multiple low-load tasks.";
+            }
+            else if (loadLevel === "Medium") {
+                suggestion.textContent = "Balanced work. Take short breaks after completion.";
+            }
+            else {
+                suggestion.textContent = "High cognitive load! Work in deep focus sessions (Pomodoro recommended).";
+            }
+        }
+    </script>
+
+</body>
+</html>
